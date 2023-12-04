@@ -44,7 +44,7 @@ After running the appropriate command, you'll see the Connect 4 game interface
 in your terminal. Follow the on-screen instructions to make your moves and enjoy
 the game!
 
-For a full overview, see the [user guide](https://github.com/MeenaSoftwareDevelopment/connect-4/blob/main/docs/user-guide.adoc).
+For a full overview, see the [user guide](https://github.com/MeenaSoftwareDevelopment/connect-4/blob/arsalan-fixes/docs/user_guide.adoc).
 
 ## Contributing
 
