@@ -126,39 +126,50 @@ def check_win_condition(board):
     Returns:
         bool: True if there is a win condition, False otherwise.
     """
+    def check_direction(row, col, row_offset, col_offset):
+        """
+        Check for a win in the specified direction.
+
+        Args:
+            row (int): Starting row index.
+            col (int): Starting column index.
+            row_offset (int): The number of rows to move in the specified direction.
+            col_offset (int): The number of columns to move in the specified direction.
+
+        Returns:
+            bool: True if there is a win condition in the specified direction, False otherwise.
+        """
+        for i in range(3):
+            if board[row][col] != board[row + row_offset * i][col + col_offset * i] != ' ':
+                return False
+        return True
+
     # Check rows for a win
     for row in range(len(board)):
         for col in range(len(board[0]) - 3):
-            if (
-                board[row][col] == board[row][col + 1] == board[row][col + 2] == board[row][col + 3] != ' '
-            ):
+            if check_direction(row, col, 0, 1):
                 return True
 
     # Check columns for a win
     for col in range(len(board[0])):
         for row in range(len(board) - 3):
-            if (
-                board[row][col] == board[row + 1][col] == board[row + 2][col] == board[row + 3][col] != ' '
-            ):
+            if check_direction(row, col, 1, 0):
                 return True
 
     # Check diagonals (top-left to bottom-right) for a win
     for row in range(len(board) - 3):
         for col in range(len(board[0]) - 3):
-            if (
-                board[row][col] == board[row + 1][col + 1] == board[row + 2][col + 2] == board[row + 3][col + 3] != ' '
-            ):
+            if check_direction(row, col, 1, 1):
                 return True
 
     # Check diagonals (bottom-left to top-right) for a win
     for row in range(3, len(board)):
         for col in range(len(board[0]) - 3):
-            if (
-                board[row][col] == board[row - 1][col + 1] == board[row - 2][col + 2] == board[row - 3][col + 3] != ' '
-            ):
+            if check_direction(row, col, -1, 1):
                 return True
 
     return False  # Return False if no win condition is met
+
 
 def switch_players(current_player, player1, player2):
     """
