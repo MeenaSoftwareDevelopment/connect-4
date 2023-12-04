@@ -194,7 +194,7 @@ def get_board_dimensions(min_rows, max_rows, min_cols, max_cols):
         tuple: A tuple containing the number of rows and columns.
     """
 
-    rows = input(f"Please select how many rows you want. (min {min_rows}, max {max_rows})\n> ")
+    rows = input(f"Please select how many rows you want (min {min_rows}, max {max_rows})\n> ")
     cols = input(f"Please select how many columns you want (min {min_cols}, max {max_cols})\n> ")
 
     return int(rows), int(cols)
@@ -217,8 +217,6 @@ def main():
 
     while True:
         display_board(board)
-
-        print(f"Win condition: {check_win_condition(board)}, Board full: {is_board_full(board)}")
 
         while not check_win_condition(board) and not is_board_full(board):
             current_player = switch_players(current_player, player1, player2)
