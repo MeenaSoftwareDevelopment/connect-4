@@ -197,21 +197,11 @@ def display_winner(player):
     """
     print(f"Player {player} wins!")
 
-# Function to display the game results or end-of-game messages
-def display_results():
-    """
-    Displays the game results.
-
-    At the moment it just prints "Game Over".
-    """
-    print("Game Over")  # You can add any relevant messages or results here
-
 # Main game loop
 def play_connect_4():
     """
     The main entry point and game loop.
     """
-    global game_over # this doesn't need to be global - Arsalan
     player1, player2 = get_player_names()
     game_over = False
     ROWS = int(input("Please select how many rows you want (Minimum of 8, Maximum of 18): "))  # Define the number of rows
@@ -246,10 +236,9 @@ def play_connect_4():
                 display_invalid_move_message()
 
         # Game Over State
-        display_results()
         restart_option = input("Press 'r' to restart or any other key to quit: ")
         if restart_option.lower() == "r":
-            board = create_board(ROWS, COLUMNS)  # Reinitialize the game board
+            board = create_board(ROWS, COLUMNS)
             game_over = False
             current_player = player1
         else:
