@@ -41,7 +41,6 @@ def get_player_names():
     player2 = input("Player 2, enter your username (max 2 characters)\n> ")
     return player1, player2
 
-# Function to initialize game variables
 def initialize_game_variables():
     """
     This function assumedly is for initializing game variables.
@@ -60,10 +59,7 @@ def is_board_full(board):
     Returns:
         bool: True if the board is full, False otherwise.
     """
-    for row in board:
-        if ' ' in row:
-            return False
-    return True
+    return all(' ' not in row for row in board)
 
 def get_column_choice(player):
     """
