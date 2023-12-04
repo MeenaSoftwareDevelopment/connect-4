@@ -68,7 +68,7 @@ def get_column_choice(player):
             column = int(input(f"{player}, choose a column: ")) - 1
             if 0 <= column <= 11:
                 break
-            print("Please choose a column between 1 and 11.")
+            print("Please choose a column between 1 and 12.")
         except ValueError:
             print("Invalid input. Please enter a number.")
 
