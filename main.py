@@ -205,8 +205,7 @@ def main():
     while not game_over:
         display_board(board)
 
-        while not game_over and not is_board_full(board):  # Use is_board_full with the board
-            display_board(board)
+        while not is_board_full(board):
             current_player = switch_players(current_player, player1, player2)  # Pass the necessary arguments
             column = get_column_choice(current_player)
 
