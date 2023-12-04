@@ -23,7 +23,7 @@ def display_board(board):
 
     board_width = len(board[0])
 
-    print('—' * board_width * 2 - 1)
+    print('—' * (board_width * 2 - 1))
 
     for col in range(1, board_width + 1):
         print(f' {col}', end='')
@@ -37,8 +37,8 @@ def get_player_names():
     Returns:
         tuple: A tuple containing the names of the two players.
     """
-    player1 = input("Player 1, enter your username (max 2 characters): ")
-    player2 = input("Player 2, enter your username (max 2 characters): ")
+    player1 = input("Player 1, enter your username (max 2 characters)\n> ")
+    player2 = input("Player 2, enter your username (max 2 characters)\n> ")
     return player1, player2
 
 # Function to initialize game variables
