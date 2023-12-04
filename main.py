@@ -1,9 +1,23 @@
-# Function to create the game board
-def create_board(rows, columns):
+"""
+Connect 4 Game - Assignment 2 Software Development
+"""
+
+def create_board(rows, columns) -> list:
+    """
+    This function creates the game board with the given number of rows and columns.
+
+    Returns:
+        list: A 2D list representing the game board.
+    """
     return [[' ' for _ in range(columns)] for _ in range(rows)]
 
-# Function to display the game board
 def display_board(board):
+    """
+    This function displays the game board.
+
+    Args:
+        board (list): A 2D list representing the game board.
+    """
     for row in board:
         print('|'.join(row))
     print('-' * (len(board[0]) * 2 - 1))
@@ -11,52 +25,102 @@ def display_board(board):
         print(f' {col}', end='')
     print()
 
-# Function to get player names
 def get_player_names():
-    player1 = input("Player 1, enter your username(max 2 characters): ")
-    player2 = input("Player 2, enter your username(max 2 characters): ")
+    """
+    Prompt the user to enter the names of the two players.
+
+    Returns:
+        tuple: A tuple containing the names of the two players.
+    """
+    player1 = input("Player 1, enter your username (max 2 characters): ")
+    player2 = input("Player 2, enter your username (max 2 characters): ")
     return player1, player2
 
 # Function to initialize game variables
 def initialize_game_variables():
-    pass  
+    """
+    This function assumedly is for initializing game variables.
 
-# Function to check if the board is full
+    Right now it does nothing, it's just a placeholder.
+    """
+    pass
+
 def is_board_full(board):
+    """
+    Simply checks if the game board is full.
+
+    Args:
+        board (list): A 2D list representing the game board.
+
+    Returns:
+        bool: True if the board is full, False otherwise.
+    """
     for row in board:
         if ' ' in row:
             return False
     return True
 
-# Function to get the column choice from the player
 def get_column_choice(player):
+    """
+    Prompt the player to choose a column.
+
+    Args:
+        player (str): The name of the player.
+
+    Returns:
+        int: The chosen column index.
+    """
     while True:
         try:
-            column = int(input(f"{player}, choose a column : ")) - 1  # Subtract 1 for zero-based indexing
+            # Subtract 1 for zero-based indexing
+            column = int(input(f"{player}, choose a column: ")) - 1
             if 0 <= column <= 11:  # Check if the column choice is within the valid range
                 return column
-            else:
-                print("Please choose a column between 1 and 7.")
+            print("Please choose a column between 1 and 7.")
         except ValueError:
             print("Invalid input. Please enter a number.")
 
-# Function to check if a move is valid in the specified column
 def valid_move(column, board):
+    """
+    Checks if a move is a valid one.
+
+    Args:
+        column (int): The index of the column to place a piece.
+        board (list): A 2D list representing the game board.
+
+    Returns:
+        bool: True if the move is valid, False otherwise.
+    """
     return 0 <= column < len(board[0]) and board[0][column] == ' '
 
-
-
-
-# Function to place a player's piece in the specified column
 def place_piece(column, current_player, board):
+    """
+    Places a piece in the specified column.
+
+    Args:
+        column (int): The index of the column to place a piece.
+        current_player (str): The name of the current player.
+        board (list): A 2D list representing the game board.
+
+    Returns:
+        bool: True if the piece is successfully placed, False otherwise.
+    """
     for row in range(len(board) - 1, -1, -1):
         if board[row][column] == ' ':
             board[row][column] = current_player
             return True  # Return True when a piece is successfully placed
     return False  # Return False if the column is already full
 
-# Function to check if there's a win condition
 def check_win_condition(board):
+    """
+    Check if there is a win condition in the game.
+
+    Args:
+        board (list): A 2D list representing the game board.
+
+    Returns:
+        bool: True if there is a win condition, False otherwise.
+    """
     # Check rows for a win
     for row in range(len(board)):
         for col in range(len(board[0]) - 3):
@@ -91,34 +155,52 @@ def check_win_condition(board):
 
     return False  # Return False if no win condition is met
 
-# Function to switch players
 def switch_players(current_player, player1, player2):
+    """
+    Switch the current player.
+
+    Args:
+        current_player (str): The name of the current player.
+        player1 (str): The name of the first player.
+        player2 (str): The name of the second player.
+
+    Returns:
+        str: The name of the next player.
+    """
     if current_player == player1:
         return player2
     else:
         return player1
 
-
-# Function to display the winner
 def display_winner(player):
-    print(f"Player {player} wins!")
+    """
+    Simply displays the name of the winner.
 
+    Args:
+        player (str): The name of the winner.
+    """
+    print(f"Player {player} wins!")
 
 # Function to display the game results or end-of-game messages
 def display_results():
-    print("Game Over")  # You can add any relevant messages or results here
+    """
+    Displays the game results.
 
+    At the moment it just prints "Game Over".
+    """
+    print("Game Over")  # You can add any relevant messages or results here
 
 # Main game loop
 def play_connect_4():
-    global game_over
+    """
+    The main entry point and game loop.
+    """
+    global game_over # this doesn't need to be global - Arsalan
     player1, player2 = get_player_names()
     game_over = False
     ROWS = int(input("Please select how many rows you want (Minimum of 8, Maximum of 18): "))  # Define the number of rows
     COLUMNS = int(input("Please select how many columns you want (Minimum of 6, Maximum of 12): "))  # Define the number of columns
     board = create_board(ROWS, COLUMNS)  # Initialize the game board
-
-  
 
     current_player = player1  # Initializing current_player here
 
