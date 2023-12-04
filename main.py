@@ -20,9 +20,14 @@ def display_board(board):
     """
     for row in board:
         print('|'.join(row))
-    print('-' * (len(board[0]) * 2 - 1))
-    for col in range(1, len(board[0]) + 1):
+
+    board_width = len(board[0])
+
+    print('—' * board_width * 2 - 1)
+
+    for col in range(1, board_width + 1):
         print(f' {col}', end='')
+
     print()
 
 def get_player_names():
