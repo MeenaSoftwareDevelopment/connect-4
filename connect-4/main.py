@@ -20,9 +20,14 @@ def display_board(board):
     """
     for row in board:
         print('|'.join(row))
-    print('-' * (len(board[0]) * 2 - 1))
-    for col in range(1, len(board[0]) + 1):
+
+    board_width = len(board[0])
+
+    print('—' * (board_width * 2 - 1))
+
+    for col in range(1, board_width + 1):
         print(f' {col}', end='')
+
     print()
 
 def get_player_names():
@@ -32,18 +37,9 @@ def get_player_names():
     Returns:
         tuple: A tuple containing the names of the two players.
     """
-    player1 = input("Player 1, enter your username (max 2 characters): ")
-    player2 = input("Player 2, enter your username (max 2 characters): ")
+    player1 = input("Player 1, enter your username (max 2 characters)\n> ")
+    player2 = input("Player 2, enter your username (max 2 characters)\n> ")
     return player1, player2
-
-# Function to initialize game variables
-def initialize_game_variables():
-    """
-    This function assumedly is for initializing game variables.
-
-    Right now it does nothing, it's just a placeholder.
-    """
-    pass
 
 def is_board_full(board):
     """
@@ -55,10 +51,7 @@ def is_board_full(board):
     Returns:
         bool: True if the board is full, False otherwise.
     """
-    for row in board:
-        if ' ' in row:
-            return False
-    return True
+    return all(' ' not in row for row in board)
 
 def get_column_choice(player):
     """
@@ -72,13 +65,14 @@ def get_column_choice(player):
     """
     while True:
         try:
-            # Subtract 1 for zero-based indexing
             column = int(input(f"{player}, choose a column: ")) - 1
-            if 0 <= column <= 11:  # Check if the column choice is within the valid range
-                return column
-            print("Please choose a column between 1 and 7.")
+            if 0 <= column <= 11:
+                break
+            print("Please choose a column between 1 and 11.")
         except ValueError:
             print("Invalid input. Please enter a number.")
+
+    return column
 
 def valid_move(column, board):
     """
@@ -91,7 +85,10 @@ def valid_move(column, board):
     Returns:
         bool: True if the move is valid, False otherwise.
     """
-    return 0 <= column < len(board[0]) and board[0][column] == ' '
+    column_in_board = 0 <= column < len(board[0])
+    chosen_row_empty = board[0][column] == ' '
+
+    return column_in_board and chosen_row_empty
 
 def place_piece(column, current_player, board):
     """
@@ -122,10 +119,13 @@ def check_win_condition(board):
         bool: True if there is a win condition, False otherwise.
     """
     # Check rows for a win
-    for row in range(len(board)):
+    for row, _ in enumerate(board):
         for col in range(len(board[0]) - 3):
             if (
-                board[row][col] == board[row][col + 1] == board[row][col + 2] == board[row][col + 3] != ' '
+                board[row][col]     ==
+                board[row][col + 1] ==
+                board[row][col + 2] ==
+                board[row][col + 3] != ' '
             ):
                 return True
 
@@ -133,7 +133,10 @@ def check_win_condition(board):
     for col in range(len(board[0])):
         for row in range(len(board) - 3):
             if (
-                board[row][col] == board[row + 1][col] == board[row + 2][col] == board[row + 3][col] != ' '
+                board[row][col]     ==
+                board[row + 1][col] ==
+                board[row + 2][col] ==
+                board[row + 3][col] != ' '
             ):
                 return True
 
@@ -141,7 +144,10 @@ def check_win_condition(board):
     for row in range(len(board) - 3):
         for col in range(len(board[0]) - 3):
             if (
-                board[row][col] == board[row + 1][col + 1] == board[row + 2][col + 2] == board[row + 3][col + 3] != ' '
+                board[row][col]         ==
+                board[row + 1][col + 1] ==
+                board[row + 2][col + 2] ==
+                board[row + 3][col + 3] != ' '
             ):
                 return True
 
@@ -149,7 +155,10 @@ def check_win_condition(board):
     for row in range(3, len(board)):
         for col in range(len(board[0]) - 3):
             if (
-                board[row][col] == board[row - 1][col + 1] == board[row - 2][col + 2] == board[row - 3][col + 3] != ' '
+                board[row][col]         ==
+                board[row - 1][col + 1] ==
+                board[row - 2][col + 2] ==
+                board[row - 3][col + 3] != ' '
             ):
                 return True
 
@@ -172,72 +181,66 @@ def switch_players(current_player, player1, player2):
     else:
         return player1
 
-def display_winner(player):
+def get_board_dimensions(min_rows, max_rows, min_cols, max_cols):
     """
-    Simply displays the name of the winner.
+    Get the dimensions of the game board through user input.
 
     Args:
-        player (str): The name of the winner.
+        min_rows (int): The minimum number of rows.
+        max_rows (int): The maximum number of rows.
+        min_cols (int): The minimum number of columns.
+        max_cols (int): The maximum number of columns.
+    Returns:
+        tuple: A tuple containing the number of rows and columns.
     """
-    print(f"Player {player} wins!")
 
-# Function to display the game results or end-of-game messages
-def display_results():
-    """
-    Displays the game results.
+    rows = input(f"Please select how many rows you want (min {min_rows}, max {max_rows})\n> ")
+    cols = input(f"Please select how many columns you want (min {min_cols}, max {max_cols})\n> ")
 
-    At the moment it just prints "Game Over".
-    """
-    print("Game Over")  # You can add any relevant messages or results here
+    return int(rows), int(cols)
 
 # Main game loop
-def play_connect_4():
+def main():
     """
     The main entry point and game loop.
     """
-    global game_over # this doesn't need to be global - Arsalan
     player1, player2 = get_player_names()
-    game_over = False
-    ROWS = int(input("Please select how many rows you want (Minimum of 8, Maximum of 18): "))  # Define the number of rows
-    COLUMNS = int(input("Please select how many columns you want (Minimum of 6, Maximum of 12): "))  # Define the number of columns
-    board = create_board(ROWS, COLUMNS)  # Initialize the game board
+    rows, cols = get_board_dimensions(8, 18, 6, 12)
 
-    current_player = player1  # Initializing current_player here
+    board = create_board(rows, cols)
 
-    while not game_over:
+    current_player = player1
+
+    WIN_MESSAGE = f"{current_player} wins!"
+    DRAW_MESSAGE = f"It's a draw between {player1} and {player2}!"
+    INVALID_MOVE_MESSAGE = "That wasn't a valid move. Please try again."
+
+    while True:
         display_board(board)
-        initialize_game_variables()  # Initialize game variables here
 
-        while not game_over and not is_board_full(board):  # Use is_board_full with the board
-            display_board(board)
-            current_player = switch_players(current_player, player1, player2)  # Pass the necessary arguments
+        while not check_win_condition(board) and not is_board_full(board):
+            current_player = switch_players(current_player, player1, player2)
             column = get_column_choice(current_player)
 
-            if valid_move(column, board):  # Pass the 'board' argument to valid_move
-                place_successful = place_piece(column, current_player, board)  # Pass the 'board' argument to place_piece
+            if valid_move(column, board):
+                display_board(board)
+                place_successful = place_piece(column, current_player, board)
                 if place_successful:
-                    if check_win_condition(board):  # Pass the 'board' argument to check_win_condition
-                        game_over = True
-                        display_board(board)
-                        display_winner(current_player)
-                    elif is_board_full(board):
-                        game_over = True
-                        display_board(board)
-                        display_draw_message()
+                    if check_win_condition(board):
+                        print(WIN_MESSAGE)
+                    if is_board_full(board):
+                        print(DRAW_MESSAGE)
                 else:
-                    display_invalid_move_message()
+                    print(INVALID_MOVE_MESSAGE)
             else:
-                display_invalid_move_message()
+                print(INVALID_MOVE_MESSAGE)
 
-        # Game Over State
-        display_results()
-        restart_option = input("Press 'r' to restart or any other key to quit: ")
-        if restart_option.lower() == "r":
-            board = create_board(ROWS, COLUMNS)  # Reinitialize the game board
-            game_over = False
+        restart_option = input("Want to play again? (y/n) ")
+        if restart_option.lower() == "y":
+            board = create_board(rows, cols)
             current_player = player1
         else:
-            quit()
+            break
 
 if __name__ == "__main__":
-    play_connect_4()
+    main()

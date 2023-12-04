@@ -1,0 +1,145 @@
+= Connect 4 - User Guide
+
+Welcome to the Connect 4 game!
+
+This is a project to develop a Connect 4 game in Python. This project is written
+from scratch and requires no external libraries.
+
+This user guide will give you an overview of the project and how to use it.
+
+== Contents
+
+. <<First-Time Setup,First-Time Setup>>
+. <<Gameplay,Gameplay>>
+.. <<Player Names,Player Names>>
+.. <<Board Size,Board Size>>
+.. <<Choosing a Column,Choosing a Column>>
+.. <<Endgame Conditions,Endgame Conditions>>
+. <<License,License>>
+. <<Authors,Authors>>
+
+== First-Time Setup
+
+First of all, this project uses Git and is hosted on the GitHub platform. You
+can clone the repository onto your computer if you have Git installed.
+
+If you do not have Git installed on your local system, please visit
+https://git-scm.com/downloads and download the correct version for your system.
+
+If Git is installed and ready to go, run the following command:
+
+[source,bash]
+----
+git clone https://github.com/MeenaSoftwareDevelopment/connect-4.git
+----
+
+This will pull the Connect 4 game to your local machine.
+
+Once you have cloned the repository, navigate to its directory and run the game.
+
+[source,bash]
+----
+cd connect-4/connect-4
+python3 connect-4.py
+----
+
+On Windows, substitute `python3` with `python` in the command above.
+
+== Gameplay
+
+This game is played inside the terminal, and you play through entering commands.
+
+Once you start the game, you'll be asked a few questions.
+
+=== Player Names
+
+[source]
+----
+Player 1, enter your username (max 2 characters)
+> x
+Player 2, enter your username (max 2 characters)
+> o
+----
+
+First of all, the game will ask the two players to enter their two-character
+usernames, which will represent them on the game board.
+
+=== Board Size
+
+[source]
+----
+Please select how many rows you want (min 8, max 18)
+> 8
+Please select how many columns you want (min 6, max 12)
+> 6
+----
+
+You'll then be asked how big you want the game board to be, with a minimum
+size constraint of 8x6 and a maximum constraint of 18x12.
+
+Once that's done, the game board will be generated for you.
+
+[source]
+----
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+—————————————————
+ 1 2 3 4 5 6 7 8 9
+----
+
+=== Choosing a Column
+
+[source]
+----
+x, choose a column: 2
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ |x| | | | | | |
+—————————————————
+ 1 2 3 4 5 6 7 8 9
+o, choose a column: 2
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+ | | | | | | | |
+o|x| | | | | | |
+—————————————————
+ 1 2 3 4 5 6 7 8 9
+----
+
+The two players will alternately be prompted to enter their chosen column
+number.
+
+=== Endgame Conditions
+
+You can end the game two ways - win or draw.
+
+A win is counted whenever four of a player's tokens match horizontally,
+vertically, or diagonally.
+
+A draw is counted whenever the board is full.
+
+== License
+
+Connect 4 is licensed under the MIT License.
+
+== Authors
+
+Most of the game's code was written by Vasi Kazakov with refactoring done by
+Arsalan Kazmi.
+
+This user guide was authored by Arsalan Kazmi.

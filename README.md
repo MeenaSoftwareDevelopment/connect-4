@@ -33,7 +33,7 @@ software; GitHub is the Microsoft-owned online platform that just USES Git.
 
 ```sh
 git clone https://github.com/MeenaSoftwareDevelopment/connect-4
-cd connect-4
+cd connect-4/connect-4
 ```
 
 ## Running
@@ -43,6 +43,8 @@ On Windows, run `python main.py`. On *nix, run `python3 main.py`.
 After running the appropriate command, you'll see the Connect 4 game interface
 in your terminal. Follow the on-screen instructions to make your moves and enjoy
 the game!
+
+For a full overview, see the [user guide](https://github.com/MeenaSoftwareDevelopment/connect-4/blob/arsalan-fixes/docs/user_guide.adoc).
 
 ## Contributing
 
