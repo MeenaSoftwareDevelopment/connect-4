@@ -93,7 +93,10 @@ def valid_move(column, board):
     Returns:
         bool: True if the move is valid, False otherwise.
     """
-    return 0 <= column < len(board[0]) and board[0][column] == ' '
+    column_in_board = 0 <= column < len(board[0])
+    chosen_row_empty = board[0][column] == ' '
+
+    return column_in_board and chosen_row_empty
 
 def place_piece(column, current_player, board):
     """
