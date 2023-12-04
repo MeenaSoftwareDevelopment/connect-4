@@ -41,14 +41,6 @@ def get_player_names():
     player2 = input("Player 2, enter your username (max 2 characters)\n> ")
     return player1, player2
 
-def initialize_game_variables():
-    """
-    This function assumedly is for initializing game variables.
-
-    Right now it does nothing, it's just a placeholder.
-    """
-    pass
-
 def is_board_full(board):
     """
     Simply checks if the game board is full.
@@ -198,21 +190,20 @@ def display_winner(player):
     print(f"Player {player} wins!")
 
 # Main game loop
-def play_connect_4():
+def main():
     """
     The main entry point and game loop.
     """
     player1, player2 = get_player_names()
     game_over = False
     ROWS = int(input("Please select how many rows you want (Minimum of 8, Maximum of 18): "))  # Define the number of rows
-    COLUMNS = int(input("Please select how many columns you want (Minimum of 6, Maximum of 12): "))  # Define the number of columns
-    board = create_board(ROWS, COLUMNS)  # Initialize the game board
+    COLS = int(input("Please select how many columns you want (Minimum of 6, Maximum of 12): "))  # Define the number of columns
+    board = create_board(ROWS, COLS)  # Initialize the game board
 
     current_player = player1  # Initializing current_player here
 
     while not game_over:
         display_board(board)
-        initialize_game_variables()  # Initialize game variables here
 
         while not game_over and not is_board_full(board):  # Use is_board_full with the board
             display_board(board)
@@ -245,4 +236,4 @@ def play_connect_4():
             quit()
 
 if __name__ == "__main__":
-    play_connect_4()
+    main()
