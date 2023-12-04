@@ -73,13 +73,14 @@ def get_column_choice(player):
     """
     while True:
         try:
-            # Subtract 1 for zero-based indexing
             column = int(input(f"{player}, choose a column: ")) - 1
-            if 0 <= column <= 11:  # Check if the column choice is within the valid range
-                return column
-            print("Please choose a column between 1 and 7.")
+            if 0 <= column <= 11:
+                break
+            print("Please choose a column between 1 and 11.")
         except ValueError:
             print("Invalid input. Please enter a number.")
+
+    return column
 
 def valid_move(column, board):
     """
