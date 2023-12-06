@@ -215,6 +215,8 @@ def main():
     DRAW_MESSAGE = f"It's a draw between {player1} and {player2}!"
     INVALID_MOVE_MESSAGE = "That wasn't a valid move. Please try again."
 
+    print(f"Welcome to the game, {player1} and {player2}!")
+
     while True:
         display_board(board)
 
@@ -223,9 +225,9 @@ def main():
             column = get_column_choice(current_player, cols - 1)
 
             if valid_move(column, board):
-                display_board(board)
                 place_successful = place_piece(column, current_player, board)
                 if place_successful:
+                    display_board(board)
                     if check_win_condition(board):
                         print(WIN_MESSAGE)
                     if is_board_full(board):
@@ -241,6 +243,7 @@ def main():
             current_player = player1
         else:
             break
+
 
 if __name__ == "__main__":
     main()
