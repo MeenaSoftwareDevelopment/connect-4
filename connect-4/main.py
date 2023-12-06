@@ -221,7 +221,10 @@ def main():
         display_board(board)
 
         while not check_win_condition(board) and not is_board_full(board):
-            current_player = switch_players(current_player, player1, player2)
+            if not any(player1 in row or player2 in row for row in board):
+                current_player = player1
+            else:
+                current_player = switch_players(current_player, player1, player2)
             column = get_column_choice(current_player, cols - 1)
 
             if valid_move(column, board):
