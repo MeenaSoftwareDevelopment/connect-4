@@ -53,7 +53,7 @@ def is_board_full(board):
     """
     return all(' ' not in row for row in board)
 
-def get_column_choice(player):
+def get_column_choice(player, max_column_range):
     """
     Prompt the player to choose a column.
 
@@ -66,9 +66,9 @@ def get_column_choice(player):
     while True:
         try:
             column = int(input(f"{player}, choose a column: ")) - 1
-            if 0 <= column <= 11:
+            if 0 <= column <= max_column_range:
                 break
-            print("Please choose a column between 1 and 12.")
+            print(f"Please choose a column between 1 and {max_column_range + 1}.")
         except ValueError:
             print("Invalid input. Please enter a number.")
 
@@ -220,7 +220,7 @@ def main():
 
         while not check_win_condition(board) and not is_board_full(board):
             current_player = switch_players(current_player, player1, player2)
-            column = get_column_choice(current_player)
+            column = get_column_choice(current_player, cols - 1)
 
             if valid_move(column, board):
                 display_board(board)
