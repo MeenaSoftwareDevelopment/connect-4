@@ -37,8 +37,14 @@ def get_player_names():
     Returns:
         tuple: A tuple containing the names of the two players.
     """
-    player1 = input("Player 1, enter your username (max 2 characters)\n> ")
-    player2 = input("Player 2, enter your username (max 2 characters)\n> ")
+
+    player1 = input("Player 1, enter your letter\n> ")
+    player2 = input("Player 2, enter your letter\n> ")
+
+    if len(player1) != 1 or len(player2) != 1:
+        print("Out of range. Please enter a single letter.")
+        get_player_names()
+
     return player1, player2
 
 def is_board_full(board):
@@ -196,6 +202,13 @@ def get_board_dimensions(min_rows, max_rows, min_cols, max_cols):
 
     rows = input(f"Please select how many rows you want (min {min_rows}, max {max_rows})\n> ")
     cols = input(f"Please select how many columns you want (min {min_cols}, max {max_cols})\n> ")
+
+    if int(rows) > max_rows or int(rows) < min_rows:
+        print(f"Out of range. Please select a number between {min_rows} and {max_rows}")
+        get_board_dimensions(min_rows, max_rows, min_cols, max_cols)
+    if int(cols) > max_cols or int(cols) < min_cols:
+        print(f"Out of range. Please select a number between {min_cols} and {max_cols}")
+        get_board_dimensions(min_rows, max_rows, min_cols, max_cols)
 
     return int(rows), int(cols)
 
